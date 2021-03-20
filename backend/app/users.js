@@ -1,10 +1,5 @@
 const router = require('express').Router();
 const UserModel = require('../models/User');
-const config = require('../config');
-const { nanoid } = require('nanoid');
-const auth = require('../middlewares/auth');
-const permit = require('../middlewares/permit');
-const { CastError } = require('mongoose').Error;
 
 router.post('/', async (req, res) => {
   try {

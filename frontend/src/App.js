@@ -1,9 +1,15 @@
-function App() {
+import React from 'react';
+import { useSelector } from "react-redux";
+import Routes from "./Routes";
+import Layout from "./components/Layout/Layout";
+
+const App = () => {
+  const user = useSelector(state => state.users.user);
   return (
-    <div className="App">
-      <h1>Hello World!</h1>
-    </div>
-  );
-}
+    <Layout>
+      <Routes user={user} />
+    </Layout>
+  )
+};
 
 export default App;
