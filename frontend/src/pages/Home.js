@@ -4,7 +4,6 @@ import Grid from '@material-ui/core/Grid';
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPlaces } from "../store/actions/placesAction";
-import CardMedia from '@material-ui/core/CardMedia';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -31,6 +30,7 @@ function Home() {
                 {places.map(place => {
                     return <PlaceCard
                         key={place._id}
+                        id={place._id}
                         title={place.title}
                         image={place.main_image}
                         reviewsSum={123}

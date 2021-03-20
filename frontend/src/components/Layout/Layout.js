@@ -18,6 +18,9 @@ const useStyles = makeStyles(theme => ({
             color: "inherit"
         }
     },
+    mainBackground: {
+        background: "#EDFFFF"
+    },
     staticToolbar: {
         marginBottom: theme.spacing(2)
     },
@@ -35,7 +38,7 @@ const useStyles = makeStyles(theme => ({
 const Layout = ({ user, children }) => {
     const classes = useStyles();
     return (
-        <>
+        <div className={classes.mainBackground}>
             <CssBaseline />
             <AppBar>
                 <Toolbar>
@@ -53,11 +56,9 @@ const Layout = ({ user, children }) => {
             </AppBar>
             <Toolbar className={classes.staticToolbar} />
             <Container>
-                <main>
-                    {children}
-                </main>
+                {children}
             </Container>
-        </>
+        </div>
     );
 };
 

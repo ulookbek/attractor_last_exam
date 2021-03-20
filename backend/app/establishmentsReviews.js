@@ -16,7 +16,7 @@ router.post("/", [auth], async (req, res) => {
 
 router.get("/:id", async (req, res) => {
     try {
-        const allReviewsOfEstablishment = await EstablishmentReview.find({ establishment: req.params.id })
+        const allReviewsOfEstablishment = await EstablishmentReview.find({ establishment: req.params.id }).populate("user", "fullname")
         res.send(allReviewsOfEstablishment);
     } catch (e) {
         res.status(500).send(e);

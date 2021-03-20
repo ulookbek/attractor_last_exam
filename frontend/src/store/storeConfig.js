@@ -17,16 +17,15 @@ import {
 import usersReducer from "./reducers/userReducer";
 import placesReducer from "./reducers/placeReducer";
 
-
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 export const history = createBrowserHistory();
 
-const composeEnhancers =
-  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
+  router: connectRouter(history),
   users: usersReducer,
   places: placesReducer,
-  router: connectRouter(history)
+
 });
 
 const persistedState = loadFromLocalStorage();

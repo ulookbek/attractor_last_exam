@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function PlaceCard({ image, title, reviewsSum, imagesSum }) {
+export default function PlaceCard({ image, title, reviewsSum, imagesSum, id }) {
     const classes = useStyles();
     const [value, setValue] = React.useState(2);
     let cardImage = imageNotAvailable;
@@ -53,7 +53,7 @@ export default function PlaceCard({ image, title, reviewsSum, imagesSum }) {
         <Grid item xs={4}>
             <Card className={classes.root}>
                 <div className={classes.link}>
-                    <Link to="/" >{title}</Link>
+                    <Link to={`/view-place/${id}`} >{title}</Link>
                 </div>
                 <CardActionArea>
                     <CardMedia
