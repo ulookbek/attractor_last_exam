@@ -50,12 +50,16 @@ const EstablishmentsSchema = new Schema(
                 appraisal: { interior: Number, food: Number, service: Number }
             }
         ],
-        images: {
-            type: Array,
-        },
+        images: [{
+            user: {
+                type: Schema.Types.ObjectId,
+                ref: "User",
+            },
+            image: String
+        }]
     }
 );
 
-const Establishments = mongoose.model("Establishments", EstablishmentsSchema);
+const Establishments = mongoose.model("Establishment", EstablishmentsSchema);
 
 module.exports = Establishments;

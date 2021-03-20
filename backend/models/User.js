@@ -65,6 +65,6 @@ UserSchema.methods.genToken = function () {
     this.token = nanoid();
 };
 
-const UserModel = mongoose.model('UserModel', UserSchema);
+const UserModel = mongoose.model('User', UserSchema);
 
 module.exports = UserModel;

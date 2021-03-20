@@ -1,4 +1,8 @@
 const path = require('path');
+const dotenv = require('dotenv').config()
+if (dotenv.error) {
+    throw dotenv.error
+}
 
 const rootPath = __dirname;
 
