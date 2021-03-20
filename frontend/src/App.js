@@ -6,7 +6,7 @@ import Layout from "./components/Layout/Layout";
 const App = () => {
   const user = useSelector(state => state.users.user);
   return (
-    <Layout>
+    <Layout user={user}>
       <Routes user={user} />
     </Layout>
   )
