@@ -14,4 +14,13 @@ router.post("/", [auth], async (req, res) => {
     }
 });
 
+router.get("/:id", async (req, res) => {
+    try {
+        const allReviewsOfEstablishment = await EstablishmentReview.find({ establishment: req.params.id })
+        res.send(allReviewsOfEstablishment);
+    } catch (e) {
+        res.status(500).send(e);
+    }
+});
+
 module.exports = router;
