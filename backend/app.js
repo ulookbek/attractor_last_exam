@@ -6,6 +6,8 @@ const config = require("./config");
 
 const users = require("./app/users");
 const establishments = require("./app/establishments");
+const establishmentsReviews = require("./app/establishmentsReviews");
+const establishmentsImages = require("./app/establishmentsImages");
 
 const app = express();
 
@@ -20,6 +22,8 @@ mongoose
 
 app.use("/users", users);
 app.use("/establishments", establishments);
+app.use("/reviews", establishmentsReviews);
+app.use("/images", establishmentsImages);
 
 app.use((req, res) => {
   res.status(404).send({ error: "404 Not found" });
