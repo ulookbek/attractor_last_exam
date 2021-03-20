@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const config = require("./config");
 
 const users = require("./app/users");
-const articles = require("./app/articles");
+const establishments = require("./app/establishments");
 
 const app = express();
 
@@ -19,7 +19,7 @@ mongoose
   .then(() => console.log('<<< MongoDB is worked! >>>'))
 
 app.use("/users", users);
-app.use("/articles", articles);
+app.use("/establishments", establishments);
 
 app.use((req, res) => {
   res.status(404).send({ error: "404 Not found" });
