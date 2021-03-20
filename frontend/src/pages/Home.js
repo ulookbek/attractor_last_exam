@@ -3,7 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import { fetchPlaces } from "../store/actions/placesAction";
+import CardMedia from '@material-ui/core/CardMedia';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -20,7 +21,6 @@ function Home() {
     const dispatch = useDispatch();
     const places = useSelector(state => state.places.places);
     const user = useSelector(state => state.users.user);
-
     React.useEffect(() => {
         dispatch(fetchPlaces());
     }, [dispatch]);
@@ -28,9 +28,15 @@ function Home() {
     return (
         <div className={classes.root}>
             <Grid container spacing={3}>
+                {places.map(place => {
+                    return <PlaceCard
+                        key={place._id}
+                        title={place.title}
+                        image={place.main_image}
+                        reviewsSum={123}
+                        imagesSum={321} />
 
-                <PlaceCard title={'Ала тоо'} image={'https://celebsupdate.com/wp-content/uploads/2019/12/Taylor-Hill.jpg'} reviewsSum={123} imagesSum={321} />
-                <PlaceCard title={'Ала тоо'} image={'https://i.pinimg.com/originals/29/df/b1/29dfb1b856f37e7cd088ba33ba6bf392.jpg'} reviewsSum={123} imagesSum={321} />
+                })}
             </Grid>
         </div>
     )

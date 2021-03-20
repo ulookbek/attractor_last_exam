@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
@@ -12,10 +11,8 @@ import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import { Link } from "react-router-dom";
-
-
-
-
+import imageNotAvailable from "../../assets/images/image_not_available.png";
+import { baseApi } from "../../config/constants";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -47,7 +44,11 @@ const useStyles = makeStyles((theme) => ({
 export default function PlaceCard({ image, title, reviewsSum, imagesSum }) {
     const classes = useStyles();
     const [value, setValue] = React.useState(2);
+    let cardImage = imageNotAvailable;
 
+    if (image) {
+        cardImage = baseApi + "/uploads/" + image;
+    }
     return (
         <Grid item xs={4}>
             <Card className={classes.root}>
@@ -57,7 +58,7 @@ export default function PlaceCard({ image, title, reviewsSum, imagesSum }) {
                 <CardActionArea>
                     <CardMedia
                         className={classes.media}
-                        image={image}
+                        image={cardImage}
                     />
                 </CardActionArea>
                 <CardContent>

@@ -15,6 +15,7 @@ import {
   loadFromLocalStorage,
 } from "./localStorageConfig";
 import usersReducer from "./reducers/userReducer";
+import placesReducer from "./reducers/placeReducer";
 
 
 export const history = createBrowserHistory();
@@ -24,6 +25,7 @@ const composeEnhancers =
 
 const rootReducer = combineReducers({
   users: usersReducer,
+  places: placesReducer,
   router: connectRouter(history)
 });
 
