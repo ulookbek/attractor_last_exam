@@ -15,4 +15,14 @@ router.post("/", [auth, upload.single("images")], async (req, res) => {
     }
 });
 
+router.get("/:id", async (req, res) => {
+    try {
+        const allImagesOfEstablishment = await EstablishmentImages.find({ establishment: req.params.id })
+        res.send(allImagesOfEstablishment);
+    } catch (e) {
+        res.status(500).send(e);
+    }
+});
+
+
 module.exports = router;
