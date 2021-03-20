@@ -60,4 +60,15 @@ router.delete("/:id", [auth, permit("admin")], async (req, res) => {
 });
 
 
+router.post("/review", [auth], async (req, res) => {
+    const establishment = new Establishment(establishmentData);
+    try {
+        await establishment.save();
+        res.send(establishment);
+    } catch (e) {
+        res.status(400).send(e);
+    }
+});
+
+
 module.exports = router;

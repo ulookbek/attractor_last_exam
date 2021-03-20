@@ -40,23 +40,6 @@ const EstablishmentsSchema = new Schema(
             required: true,
             default: Date.now(),
         },
-        reviews: [
-            {
-                user: {
-                    type: Schema.Types.ObjectId,
-                    ref: "User",
-                },
-                review: String,
-                appraisal: { interior: Number, food: Number, service: Number }
-            }
-        ],
-        images: [{
-            user: {
-                type: Schema.Types.ObjectId,
-                ref: "User",
-            },
-            image: String
-        }]
     }
 );
 

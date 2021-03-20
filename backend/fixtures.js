@@ -4,6 +4,8 @@ const config = require("./config");
 
 const UserModel = require("./models/User");
 const EstablishmentModel = require("./models/Establishment");
+const EstablishmentReviewModel = require("./models/EstablishmentReview");
+const EstablishmentImagesModel = require("./models/EstablishmentImages");
 
 mongoose.connect(config.database, config.databaseOpt);
 
@@ -47,43 +49,48 @@ db.once("open", async () => {
         description: "Описание ресторана Ала-Тоо",
         main_image: "ala-too.jpeg",
         user: firstSimpleUser._id,
-        reviews: {
-          user: secondSimpleUser._id,
-          review: "Это отзыв для заведения Ала-Тоо.",
-          appraisal: {
-            interior: 4,
-            food: 3,
-            service: 2
-          }
-        },
-        images: [
-          {
-            user: secondSimpleUser._id,
-            image: "ala-too-review.jpeg"
-          }
-        ]
       },
         {
           title: "Ресторан Дасмия",
           description: "Описание ресторана Дасмия",
           main_image: "dasmiya.jpeg",
           user: secondSimpleUser._id,
-          reviews: {
-            user: firstSimpleUser._id,
-            review: "Это отзыв для заведения Дасмия.",
-            appraisal: {
-              interior: 5,
-              food: 1,
-              service: 3
-            }
-          },
-          images: [
-            {
-              user: firstSimpleUser._id,
-              image: "dasmiya-review.jpeg"
-            }
-          ]
         });
+
+    const
+      [firstEstablishmentReview,
+        secondEstablishmentReview,
+      ] = await EstablishmentReviewModel.create({
+        description: "Описание ресторана Дасмия",
+        establishment: secondEstablishment._id,
+        user: firstSimpleUser._id,
+        interior: 1,
+        food: 2,
+        service: 3,
+      },
+        {
+          description: "Это отзыв для заведения Ала-Тоо.",
+          establishment: firstEstablishment._id,
+          user: secondSimpleUser._id,
+          interior: 5,
+          food: 4,
+          service: 1,
+        });
+
+    const
+      [firstAdditionalImageForEstablishment,
+        secondAdditionalImageForEstablishment] = await EstablishmentImagesModel.create(
+          {
+            establishment: firstEstablishment._id,
+            user: secondSimpleUser._id,
+            images: "ala-too-review.jpeg",
+          },
+          {
+            establishment: secondEstablishment._id,
+            user: firstSimpleUser._id,
+            images: "dasmiya-review.jpeg",
+          }
+        )
   } catch (e) {
     console.log(e);
   }
