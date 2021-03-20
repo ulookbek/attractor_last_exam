@@ -1,16 +1,10 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const ArticleSchema = new Schema(
+const EstablishmentsSchema = new Schema(
     {
-        typeModel: {
-            type: String,
-            required: true,
-            enum: ["story", "article"],
-            default: "story",
-        },
         title: {
-            type: Object,
+            type: String,
             required:
                 [
                     true,
@@ -18,53 +12,50 @@ const ArticleSchema = new Schema(
                 ]
             ,
             max: [
-                150,
+                250,
                 "Максимальная длина заголовка 150 символов.",
             ],
-            setLang: true,
         },
-
         description: {
-            type: Object,
+            type: String,
             required: [
                 true,
                 "Поле 'Описание' обязателен для заполнения",
             ],
-            setLang: true,
         },
-        image: {
+        main_image: {
             type: String,
+            required: [
+                true,
+                "Поле 'Главная фотография' обязателен для заполнения",
+            ],
         },
         user: {
             type: Schema.Types.ObjectId,
             ref: "User",
             required: true,
         },
-        moderator: {
-            type: Schema.Types.ObjectId,
-            ref: "User",
-            default: null,
-        },
-        isPublished: {
-            type: Boolean,
-            default: false,
-        },
         created_date: {
             type: Date,
             required: true,
             default: Date.now(),
         },
-        publish_date: {
-            type: Date,
-            default: null,
+        reviews: [
+            {
+                user: {
+                    type: Schema.Types.ObjectId,
+                    ref: "User",
+                },
+                review: String,
+                appraisal: { interior: Number, food: Number, service: Number }
+            }
+        ],
+        images: {
+            type: Array,
         },
-        commentCount: {
-            type: Number
-        },
-    },
-    {strict: "throw", useNestedStrict: true}
+    }
 );
 
-const Article = mongoose.model("Article", ArticleSchema);
+const Establishments = mongoose.model("Establishments", EstablishmentsSchema);
 
-module.exports = Article;
+module.exports = Establishments;

@@ -1,34 +1,26 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const {nanoid} = require('nanoid');
+const { nanoid } = require('nanoid');
 
 const SALT_WORK_FACTOR = 2;
 
 const UserSchema = new mongoose.Schema({
-    username: {
+    fullname: {
         type: String,
-        required: [true, 'Поле "Логин" обязательно для заполнения'],
-        unique: true,
-        validate: {
-            validator: async (value) => {
-                const user = await UserModel.findOne({username: value});
-                if(user) return false;
-            },
-            message: "Такой пользователь уже существует"
-        }
+        required: [true, 'Поле "Фамилия и имя" обязательно для заполнения'],
     },
     password: {
         type: String,
         required: [true, 'Поле "Пароль" обязательно для заполнения']
     },
-    email: {
+    username: {
         type: String,
         required: [true, 'Поле "E-mail" обязательно для заполнения'],
         unique: true,
         validate: {
             validator: async (value) => {
-                const user = await UserModel.findOne({email: value});
-                if(user) return false;
+                const user = await UserModel.findOne({ username: value });
+                if (user) return false;
             },
             message: "Такой пользователь уже существует"
         }
@@ -40,36 +32,14 @@ const UserSchema = new mongoose.Schema({
     role: {
         type: String,
         default: 'user',
-        enum: ['user', 'admin', 'moderator', 'psychologist']
+        enum: ['user', 'admin']
     },
-    confirmed: {
-        type: mongoose.Schema.Types.Mixed,
-        default: null
-    },
-    online_status: {
-        type: Boolean,
-        default: false
-    },
-    hasChatRoom: {
-        type: Boolean,
-        default: false
-    },
-    telegram_id_psycho: {
-        type: String,
-        default: null
-    },
-    subscription: {
-        type: Boolean,
-        default: false,
-    },
-    resetPasswordToken: String,
-    resetPasswordExpires: Date
 }, {
     versionKey: false
 });
 
-UserSchema.pre('save', async function(next) {
-    if(!this.isModified('password')) return next();
+UserSchema.pre('save', async function (next) {
+    if (!this.isModified('password')) return next();
     try {
         const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);
         this.password = await bcrypt.hash(this.password, salt);
@@ -88,7 +58,7 @@ UserSchema.set('toJSON', {
 
 UserSchema.methods.checkPass = function (password) {
     return bcrypt.compare(password, this.password);
-     
+
 };
 
 UserSchema.methods.genToken = function () {

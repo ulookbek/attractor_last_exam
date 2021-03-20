@@ -5,18 +5,10 @@ const { nanoid } = require('nanoid');
 const auth = require('../middlewares/auth');
 const permit = require('../middlewares/permit');
 const { CastError } = require('mongoose').Error;
-const validator = require('email-validator');
 
 router.post('/', async (req, res) => {
   try {
     const errors = {};
-    Object.keys(req.body).forEach(() => {
-      if (!validator.validate(req.body.email)) {
-        errors.email = {
-          message: 'Не правильно указан email.',
-        };
-      }
-    });
     if (Object.keys(errors).length !== 0) {
       return res.status(400).send({ errors });
     }
