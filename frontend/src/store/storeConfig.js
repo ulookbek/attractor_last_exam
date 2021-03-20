@@ -14,6 +14,8 @@ import {
   saveToLocalStorage,
   loadFromLocalStorage,
 } from "./localStorageConfig";
+import usersReducer from "./reducers/userReducer";
+
 
 export const history = createBrowserHistory();
 
@@ -21,7 +23,8 @@ const composeEnhancers =
   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
-  router: connectRouter(history),
+  users: usersReducer,
+  router: connectRouter(history)
 });
 
 const persistedState = loadFromLocalStorage();
@@ -38,5 +41,14 @@ const store = createStore(
   persistedState,
   enhancers
 );
+
+store.subscribe(() => {
+  saveToLocalStorage({
+    users: {
+      user: store.getState().users.user
+    }
+  });
+});
+
 
 export default store;
